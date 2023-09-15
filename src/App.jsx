@@ -16,6 +16,7 @@ const App = () => {
     type: null,
     msg: null,
   })
+  const [formBlogVisible, setformBlogVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs))
@@ -138,28 +139,36 @@ const App = () => {
 
   const blogForm = () => (
     <div>
-      <h2>create new</h2>
-      <form onSubmit={addBlog}>
-        title:
-        <input
-          value={newTitle}
-          onChange={({ target }) => setNewTitle(target.value)}
-        />
-        <br />
-        author:
-        <input
-          value={newAuthor}
-          onChange={({ target }) => setNewAuthor(target.value)}
-        />
-        <br />
-        url:
-        <input
-          value={newUrl}
-          onChange={({ target }) => setNewUrl(target.value)}
-        />
-        <br />
-        <button type='submit'>create</button>
-      </form>
+      <br />
+      {formBlogVisible && (
+        <div>
+          <h2>create new</h2>
+          <form onSubmit={addBlog}>
+            title:
+            <input
+              value={newTitle}
+              onChange={({ target }) => setNewTitle(target.value)}
+            />
+            <br />
+            author:
+            <input
+              value={newAuthor}
+              onChange={({ target }) => setNewAuthor(target.value)}
+            />
+            <br />
+            url:
+            <input
+              value={newUrl}
+              onChange={({ target }) => setNewUrl(target.value)}
+            />
+            <br />
+            <button type='submit'>create</button>
+          </form>
+        </div>
+      )}
+      <button onClick={() => setformBlogVisible(!formBlogVisible)}>
+        {formBlogVisible ? 'cancel' : 'new blog'}
+      </button>
     </div>
   )
 
