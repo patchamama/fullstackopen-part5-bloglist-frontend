@@ -7,7 +7,7 @@ Answers to [openfullstack.com](https://fullstackopen.com) course exercises from 
 ## a. Login in frontend
 
 - [Exercises 5.1.-5.4.](https://fullstackopen.com/en/part5/login_in_frontend#exercises-5-1-5-4)
-  _Solution details: [5.1]() | [5.2]() | [5.3]() | [5.4]()_
+  _Solution details: [5.1](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/d3f6906d1a7cc0463f424304a915175492474502) | [5.2](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/ce69f3f79c97c42e3ee801eab109140cd9acba25) | [5.3](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/04ba3d794af42b8acf71d11135c6431032d6618e) | [5.4](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/155424c69a6ff89bf0cad72cda7850fba86cca33)_
 
 ## b. props.children and proptypes
 
