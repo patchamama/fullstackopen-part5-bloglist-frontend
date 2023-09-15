@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -11,6 +12,10 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [notificationMsg, setNotificationMsg] = useState({
+    type: null,
+    msg: null,
+  })
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs))
@@ -26,29 +31,54 @@ const App = () => {
   }, [])
 
   const logout = () => {
-    window.localStorage.removeItem('loggedNoteappUser')
-    setUser(null)
+    setNotificationMsg({
+      type: 'ok',
+      msg: `${user.name} is logged out!`,
+    })
+    setTimeout(() => {
+      setNotificationMsg({ type: null, msg: null })
+      window.localStorage.removeItem('loggedNoteappUser')
+      setUser(null)
+    }, 2000)
   }
 
   const handleLogin = async (event) => {
     event.preventDefault()
 
-    const user = await loginService.login({
-      username,
-      password,
-    })
-
-    window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user))
-    console.log(window.localStorage)
-    blogService.setToken(user.token)
-    setUser(user)
-    setUsername('')
-    setPassword('')
+    try {
+      const user = await loginService.login({
+        username,
+        password,
+      })
+      window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user))
+      console.log(window.localStorage)
+      blogService.setToken(user.token)
+      setUser(user)
+      setUsername('')
+      setPassword('')
+      setNotificationMsg({
+        type: 'ok',
+        msg: `Logged-in with user ${user.name}!`,
+      })
+      setTimeout(() => {
+        setNotificationMsg({ type: null, msg: null })
+      }, 5000)
+    } catch (exception) {
+      console.log(exception)
+      setNotificationMsg({
+        type: 'error',
+        msg: 'Wrong credentials',
+      })
+      setTimeout(() => {
+        setNotificationMsg({ type: null, msg: null })
+      }, 5000)
+    }
   }
 
   const loginForm = () => (
     <div>
       <h2>Log in to application</h2>
+      <Notification message={notificationMsg} />
       <form onSubmit={handleLogin}>
         <div>
           username
@@ -81,16 +111,29 @@ const App = () => {
       url: newUrl,
     }
 
-    blogService.create(blogObject).then((returnedBlog) => {
-      setBlogs(blogs.concat(returnedBlog))
-      setNewTitle('')
-      setNewAuthor('')
-      setNewUrl('')
-    })
-  }
+    blogService
+      .create(blogObject)
+      .then((returnedBlog) => {
+        setBlogs(blogs.concat(returnedBlog))
 
-  if (user === null) {
-    return loginForm()
+        setNotificationMsg({ type: 'ok', msg: `Added ${title}!` })
+        setTimeout(() => {
+          setNotificationMsg({ type: null, msg: null })
+        }, 5000)
+        setNewTitle('')
+        setNewAuthor('')
+        setNewUrl('')
+      })
+      .catch((error) => {
+        setNotificationMsg({
+          type: 'error',
+          msg: error.response.data.error,
+        })
+        setTimeout(() => {
+          setNotificationMsg({ type: null, msg: null })
+        }, 5000)
+        console.log(error)
+      })
   }
 
   const blogForm = () => (
@@ -120,9 +163,14 @@ const App = () => {
     </div>
   )
 
+  if (user === null) {
+    return loginForm()
+  }
+
   return (
     <div>
       <h2>blogs</h2>
+      <Notification message={notificationMsg} />
       {user.name} logged-in <button onClick={logout}>logout</button>
       {blogForm()}
       {blogs.map((blog) => (
