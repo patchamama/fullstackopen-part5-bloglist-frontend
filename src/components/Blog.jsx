@@ -21,23 +21,31 @@ const Blog = ({ blog, blogs, setBlogs, setNotificationMsg }) => {
       ...blog,
       likes: blog.likes + 1,
     }
-    console.log(newBlog)
+    // console.log(newBlog)
     try {
       const updatedBlog = await blogService.update(blog.id, newBlog)
+
+      // to fix the bug of not showing the user's name when creating a new blog
+      const getUpdatedBlog = await blogService.get(blog.id)
+      console.log(getUpdatedBlog)
+      if ('user' in getUpdatedBlog) {
+        updatedBlog.user = getUpdatedBlog.user
+      }
+
       // to fix the bug of not showing the user's name when creating a new blog
       // otherwise, the user's name will be shown as 'undefined'
       // other choice is to reload the page or to read the blogs again from the server
-      if ('loggedBlogappUser' in window.localStorage) {
-        const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
-        if (loggedUserJSON) {
-          const user = JSON.parse(loggedUserJSON)
-          updatedBlog.user = {
-            username: user.username,
-            name: user.name,
-            id: user.id,
-          }
-        }
-      }
+      // if ('loggedBlogappUser' in window.localStorage) {
+      //   const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+      //   if (loggedUserJSON) {
+      //     const user = JSON.parse(loggedUserJSON)
+      //     updatedBlog.user = {
+      //       username: user.username,
+      //       name: user.name,
+      //       id: user.id,
+      //     }
+      //   }
+      // }
 
       setBlogs((blogs) =>
         blogs.map((blogItem) =>
@@ -92,13 +100,15 @@ const Blog = ({ blog, blogs, setBlogs, setNotificationMsg }) => {
       <span style={showWhenVisible}>
         <button onClick={() => setVisible(false)}>hide</button>
         <br />
-        <a href='{blog.url}'>{blog.url}</a>
+        <a href='{blog.url}' target='_blank'>
+          {blog.url}
+        </a>
         <br />
         likes {blog.likes} <button onClick={handleLike}>like</button>
         <br />
         {blog.user?.name}
         <br />
-        {console.log(blog.user?.name, window.localStorage)}
+        {/* {console.log(blog.user?.name, window.localStorage)} */}
         {blog.user?.name &&
           'loggedBlogappUser' in window.localStorage &&
           blog.user?.name ===

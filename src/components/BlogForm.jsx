@@ -32,6 +32,11 @@ const BlogForm = ({ blogs, setBlogs, setNotificationMsg }) => {
             }
           }
         }
+        // to fix the bug of not showing the user's name when creating a new blog
+        // const getUpdatedBlog = await blogService.get(blog.id)
+        // if ('user' in getUpdatedBlog) {
+        //   updatedBlog.user = getUpdatedBlog.user
+        // }
 
         setBlogs(blogs.concat(returnedBlog))
 
