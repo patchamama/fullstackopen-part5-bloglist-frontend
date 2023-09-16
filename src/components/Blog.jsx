@@ -24,6 +24,21 @@ const Blog = ({ blog, blogs, setBlogs, setNotificationMsg }) => {
     console.log(newBlog)
     try {
       const updatedBlog = await blogService.update(blog.id, newBlog)
+      // to fix the bug of not showing the user's name when creating a new blog
+      // otherwise, the user's name will be shown as 'undefined'
+      // other choice is to reload the page or to read the blogs again from the server
+      if ('loggedBlogappUser' in window.localStorage) {
+        const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+        if (loggedUserJSON) {
+          const user = JSON.parse(loggedUserJSON)
+          updatedBlog.user = {
+            username: user.username,
+            name: user.name,
+            id: user.id,
+          }
+        }
+      }
+
       setBlogs((blogs) =>
         blogs.map((blogItem) =>
           blogItem.id !== updatedBlog.id ? blogItem : updatedBlog

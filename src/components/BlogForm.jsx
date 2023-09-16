@@ -18,6 +18,8 @@ const BlogForm = ({ blogs, setBlogs, setNotificationMsg }) => {
       .create(blogObject)
       .then((returnedBlog) => {
         // to fix the bug of not showing the user's name when creating a new blog
+        // otherwise, the user's name will be shown as 'undefined'
+        // other choice is to reload the page or to read the blogs again from the server
         if ('loggedBlogappUser' in window.localStorage) {
           const loggedUserJSON =
             window.localStorage.getItem('loggedBlogappUser')
