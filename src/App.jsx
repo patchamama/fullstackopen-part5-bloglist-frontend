@@ -23,7 +23,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
@@ -38,7 +38,7 @@ const App = () => {
     })
     setTimeout(() => {
       setNotificationMsg({ type: null, msg: null })
-      window.localStorage.removeItem('loggedNoteappUser')
+      window.localStorage.removeItem('loggedBlogappUser')
       setUser(null)
     }, 1000)
   }
@@ -51,7 +51,7 @@ const App = () => {
         username,
         password,
       })
-      window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user))
+      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
       console.log(window.localStorage)
       blogService.setToken(user.token)
       setUser(user)
@@ -74,39 +74,6 @@ const App = () => {
         setNotificationMsg({ type: null, msg: null })
       }, 5000)
     }
-  }
-
-  const addBlog = (event) => {
-    event.preventDefault()
-    const blogObject = {
-      title: newTitle,
-      author: newAuthor,
-      url: newUrl,
-    }
-
-    blogService
-      .create(blogObject)
-      .then((returnedBlog) => {
-        setBlogs(blogs.concat(returnedBlog))
-
-        setNotificationMsg({ type: 'ok', msg: `Added ${newTitle}!` })
-        setTimeout(() => {
-          setNotificationMsg({ type: null, msg: null })
-        }, 5000)
-        setNewTitle('')
-        setNewAuthor('')
-        setNewUrl('')
-      })
-      .catch((error) => {
-        setNotificationMsg({
-          type: 'error',
-          msg: error.stack,
-        })
-        setTimeout(() => {
-          setNotificationMsg({ type: null, msg: null })
-        }, 5000)
-        console.log(error)
-      })
   }
 
   if (user === null) {
@@ -133,8 +100,12 @@ const App = () => {
         {user.name} logged-in <button onClick={logout}>logout</button>
       </p>
 
-      <Togglable buttonLabel='new note'>
-        <BlogForm onSubmit={addBlog} />
+      <Togglable buttonLabel='new blog'>
+        <BlogForm
+          blogs={blogs}
+          setBlogs={setBlogs}
+          setNotificationMsg={setNotificationMsg}
+        />
       </Togglable>
       {blogs.map((blog) => (
         <Blog

@@ -1,14 +1,62 @@
 import { useState } from 'react'
+import blogService from '../services/blogs'
 
-const BlogForm = ({ createBlog }) => {
+const BlogForm = ({ blogs, setBlogs, setNotificationMsg }) => {
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
 
+  const addBlog = (event) => {
+    event.preventDefault()
+    const blogObject = {
+      title: newTitle,
+      author: newAuthor,
+      url: newUrl,
+    }
+
+    blogService
+      .create(blogObject)
+      .then((returnedBlog) => {
+        // to fix the bug of not showing the user's name when creating a new blog
+        if ('loggedBlogappUser' in window.localStorage) {
+          const loggedUserJSON =
+            window.localStorage.getItem('loggedBlogappUser')
+          if (loggedUserJSON) {
+            const user = JSON.parse(loggedUserJSON)
+            returnedBlog.user = {
+              username: user.username,
+              name: user.name,
+              id: user.id,
+            }
+          }
+        }
+
+        setBlogs(blogs.concat(returnedBlog))
+
+        setNotificationMsg({ type: 'ok', msg: `Added ${newTitle}!` })
+        setTimeout(() => {
+          setNotificationMsg({ type: null, msg: null })
+        }, 5000)
+        setNewTitle('')
+        setNewAuthor('')
+        setNewUrl('')
+      })
+      .catch((error) => {
+        setNotificationMsg({
+          type: 'error',
+          msg: error.stack,
+        })
+        setTimeout(() => {
+          setNotificationMsg({ type: null, msg: null })
+        }, 5000)
+        console.log(error)
+      })
+  }
+
   return (
     <div>
       <h2>create new</h2>
-      <form onSubmit={createBlog}>
+      <form onSubmit={addBlog}>
         title:
         <input
           value={newTitle}

@@ -45,6 +45,29 @@ const Blog = ({ blog, blogs, setBlogs, setNotificationMsg }) => {
     }
   }
 
+  const handleRemove = async () => {
+    if (!window.confirm(`Remove blog "${blog.title}" by ${blog.author}?`)) {
+      return
+    }
+    try {
+      await blogService.remove(blog.id)
+      setBlogs(blogs.filter((blogItem) => blogItem.id !== blog.id))
+      setNotificationMsg({ type: 'ok', msg: `Removed "${blog.title}"!` })
+      setTimeout(() => {
+        setNotificationMsg({ type: null, msg: null })
+      }, 5000)
+    } catch (error) {
+      setNotificationMsg({
+        type: 'error',
+        msg: error.stack,
+      })
+      setTimeout(() => {
+        setNotificationMsg({ type: null, msg: null })
+      }, 5000)
+      console.log(error)
+    }
+  }
+
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author}{' '}
@@ -54,11 +77,18 @@ const Blog = ({ blog, blogs, setBlogs, setNotificationMsg }) => {
       <span style={showWhenVisible}>
         <button onClick={() => setVisible(false)}>hide</button>
         <br />
-        {blog.url}
+        <a href='{blog.url}'>{blog.url}</a>
         <br />
         likes {blog.likes} <button onClick={handleLike}>like</button>
         <br />
         {blog.user?.name}
+        <br />
+        {console.log(blog.user?.name, window.localStorage)}
+        {blog.user?.name &&
+          'loggedBlogappUser' in window.localStorage &&
+          blog.user?.name ===
+            JSON.parse(window.localStorage.getItem('loggedBlogappUser'))
+              .name && <button onClick={handleRemove}>remove</button>}
       </span>
     </div>
   )
