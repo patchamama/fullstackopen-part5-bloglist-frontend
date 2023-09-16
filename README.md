@@ -12,10 +12,10 @@ Answers to [openfullstack.com](https://fullstackopen.com) course exercises from 
 ## b. props.children and proptypes
 
 - [Exercises 5.5.-5.11.](https://fullstackopen.com/en/part5/props_children_and_proptypes#exercises-5-5-5-11)
-  _Solution details: [5.5]() | [5.6]() | [5.7]() | [5.8]() | [5.9]() | [5.10]() | [5.11]()_
+  _Solution details: [5.5](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/71243daab1177ab11dbffb2d9aa7389d093177c2) | [5.6](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/683ab01d02b4c764cf33184159a1080ef1137787) | [5.7](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/78673c0ab7ff0d9f0017f4fbe0968fbeab78088d) | [5.8](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/7af452bbe6b23454ad3ca2754639c597beb54c04) | [5.9](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/b3fe0a1936ca422d5d9d6eacb0beaf46e03e1b9e) | [5.10](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/b49f9f2979f861111d5608feda9658412c2bf51f) | [5.11](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/7af452bbe6b23454ad3ca2754639c597beb54c04)_
 
 - [Exercises Exercise 5.12.](https://fullstackopen.com/en/part5/props_children_and_proptypes#exercise-5-12)
-  _Solution details: [5.12]()_
+  _Solution details: [5.12](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/f44c2e19e5b5bd604b86ae25f5796c7f220f3b14)_
 
 ## c. Testing React apps
 
