@@ -3,6 +3,8 @@ import Blog from './components/Blog'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -117,7 +119,7 @@ const App = () => {
       .then((returnedBlog) => {
         setBlogs(blogs.concat(returnedBlog))
 
-        setNotificationMsg({ type: 'ok', msg: `Added ${title}!` })
+        setNotificationMsg({ type: 'ok', msg: `Added ${newTitle}!` })
         setTimeout(() => {
           setNotificationMsg({ type: null, msg: null })
         }, 5000)
@@ -128,7 +130,7 @@ const App = () => {
       .catch((error) => {
         setNotificationMsg({
           type: 'error',
-          msg: error.response.data.error,
+          msg: error.stack,
         })
         setTimeout(() => {
           setNotificationMsg({ type: null, msg: null })
@@ -136,41 +138,15 @@ const App = () => {
         console.log(error)
       })
   }
-
-  const blogForm = () => (
-    <div>
-      <br />
-      {formBlogVisible && (
-        <div>
-          <h2>create new</h2>
-          <form onSubmit={addBlog}>
-            title:
-            <input
-              value={newTitle}
-              onChange={({ target }) => setNewTitle(target.value)}
-            />
-            <br />
-            author:
-            <input
-              value={newAuthor}
-              onChange={({ target }) => setNewAuthor(target.value)}
-            />
-            <br />
-            url:
-            <input
-              value={newUrl}
-              onChange={({ target }) => setNewUrl(target.value)}
-            />
-            <br />
-            <button type='submit'>create</button>
-          </form>
-        </div>
-      )}
-      <button onClick={() => setformBlogVisible(!formBlogVisible)}>
-        {formBlogVisible ? 'cancel' : 'new blog'}
-      </button>
-    </div>
-  )
+  const handleTitle = (event) => {
+    setNewTitle(event.target.value)
+  }
+  const handleAuthor = (event) => {
+    setNewAuthor(event.target.value)
+  }
+  const handleNewURL = (event) => {
+    setNewUrl(event.target.value)
+  }
 
   if (user === null) {
     return loginForm()
@@ -180,8 +156,21 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification message={notificationMsg} />
-      {user.name} logged-in <button onClick={logout}>logout</button>
-      {blogForm()}
+      <p>
+        {user.name} logged-in <button onClick={logout}>logout</button>
+      </p>
+
+      <Togglable buttonLabel='new note'>
+        <BlogForm
+          onSubmit={addBlog}
+          handleTitle={handleTitle}
+          handleAuthor={handleAuthor}
+          handleNewURL={handleNewURL}
+          newTitle={newTitle}
+          newAuthor={newAuthor}
+          newUrl={newUrl}
+        />
+      </Togglable>
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}
