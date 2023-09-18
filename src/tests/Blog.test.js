@@ -63,4 +63,16 @@ describe('<Blog>', () => {
     element = elements.querySelector('.url')
     expect(element).toBeDefined()
   })
+
+  test('after clicking the button view, children are displayed', async () => {
+    const divBefore = component.container.querySelector('.details')
+    expect(divBefore).toHaveStyle('display: none')
+
+    const user = userEvent.setup()
+    const button = screen.getByText('view')
+    await user.click(button)
+
+    const divAfter = component.container.querySelector('.details')
+    expect(divAfter).not.toHaveStyle('display: none')
+  })
 })
