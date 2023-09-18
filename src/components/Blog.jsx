@@ -78,18 +78,20 @@ const Blog = ({ blog, blogs, setBlogs, setNotificationMsg }) => {
 
   return (
     <div style={blogStyle}>
-      {blog.title} {blog.author}{' '}
+      <span className='title'>{blog.title}</span>{' '}
+      <span className='author'>{blog.author}</span>{' '}
       <span style={hideWhenVisible}>
         <button onClick={() => setVisible(true)}>view</button>
       </span>
-      <span style={showWhenVisible}>
+      <span className='details' style={showWhenVisible}>
         <button onClick={() => setVisible(false)}>hide</button>
         <br />
         <a href='{blog.url}' target='_blank'>
-          {blog.url}
+          <span className='url'>{blog.url}</span>
         </a>
         <br />
-        likes {blog.likes} <button onClick={handleLike}>like</button>
+        <span className='likes'>likes {blog.likes}</span>{' '}
+        <button onClick={handleLike}>like</button>
         <br />
         {blog.user?.name}
         <br />

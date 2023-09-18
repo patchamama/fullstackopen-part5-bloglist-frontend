@@ -22,6 +22,8 @@ Answers to [openfullstack.com](https://fullstackopen.com) course exercises from 
 - [Exercises 5.13.-5.16.](https://fullstackopen.com/en/part5/testing_react_apps#exercises-5-13-5-16)
   _Solution details: [5.13]() | [5.14]() | [5.15]() | [5.16]()_
 
+Fixing test error with jest (`"Cannot use import statement outside a module" with Axios`): https://stackoverflow.com/questions/73958968/cannot-use-import-statement-outside-a-module-with-axios
+
 ## d. End to end testing
 
 - [Exercises 5.17.-5.23.](https://fullstackopen.com/en/part5/end_to_end_testing#exercises-5-17-5-23)
