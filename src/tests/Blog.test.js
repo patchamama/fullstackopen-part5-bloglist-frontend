@@ -7,6 +7,7 @@ import Blog from '../components/Blog'
 
 describe('<Blog>', () => {
   let component
+  const clickLikes = jest.fn()
 
   beforeEach(() => {
     // const [blogs, setBlogs] = useState([])
@@ -39,6 +40,7 @@ describe('<Blog>', () => {
         blogs={blogs}
         setBlogs={setBlogs}
         setNotificationMsg={setNotificationMsg}
+        handleLike={clickLikes}
       />
     )
     // component.debug()
@@ -74,5 +76,16 @@ describe('<Blog>', () => {
 
     const divAfter = component.container.querySelector('.details')
     expect(divAfter).not.toHaveStyle('display: none')
+  })
+
+  test('after dobleclick in like button, 2 times is the controller event', async () => {
+    const user = userEvent.setup()
+
+    const sendButton = screen.getByText('like')
+    expect(sendButton).toBeDefined()
+    // await user.click(sendButton)
+    await user.dblClick(sendButton)
+
+    expect(clickLikes.mock.calls).toHaveLength(2)
   })
 })
