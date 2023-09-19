@@ -58,6 +58,11 @@ describe('Blog app', function () {
       cy.get('#url').type('url created by cypress')
       cy.get('#create').click()
       cy.contains('title created by cypress')
+
+      cy.contains('view').click()
+
+      cy.get('.like').click()
+      cy.contains('likes 1')
     })
   })
 })

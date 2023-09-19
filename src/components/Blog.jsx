@@ -93,7 +93,9 @@ const Blog = ({ blog, blogs, setBlogs, setNotificationMsg, handleLike }) => {
         </a>
         <br />
         <span className='likes'>likes {blog.likes}</span>{' '}
-        <button onClick={handleLike}>like</button>
+        <button className='like' onClick={handleLike}>
+          like
+        </button>
         <br />
         {blog.user?.name}
         <br />
