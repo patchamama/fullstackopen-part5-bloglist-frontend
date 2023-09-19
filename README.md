@@ -23,15 +23,16 @@ Answers to [openfullstack.com](https://fullstackopen.com) course exercises from 
   _Solution details: [5.13](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/a2b88d033fc0ab5a8d13c5821c4051e66e95fbd5) | [5.14](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/cca6587df6dcf85886a33a6565c93a75c3ec3758) | [5.15](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/06eb2a3c6dcb523614dc02841014aa8926834bb8) | [5.16](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/558dc11ca47fe4f96400f1a25e3b432224c6b9a9)_
 
   - Fixing test error with jest (`"Cannot use import statement outside a module" with Axios`): https://stackoverflow.com/questions/73958968/cannot-use-import-statement-outside-a-module-with-axios
-  - Was migrated the installation from the tool `Vite` to `react-scripts` for easily follow the steps and exercises of the course with the test section to use jest (framework) with react-testing-library (with Vite was more complicated to do and I leave as some pending). The steps are very simple:
+  - Was migrated the installation from the tool `Vite` to `react-scripts` for easily follow the steps and exercises of the course with the test section to use jest (test framework) with react-testing-library (with Vite was more complicated to do and I leave as some pending). The steps are very simple:
 
-  1. Do a new installation: `npx create-react-app new-install && cd new_install`,
-  2. Copy the content (except package.json) for vite installation to the new one,
-  3. rename src/main.jsx -> src/index.jsx
-  4. Delete /index.html
-  5. Replace sections of the new package.json `dependencies` and `devDependencies` for the vite package.json
+  1. Do a new installation: `npx create-react-app new_install && cd new_install`,
+  2. Copy the content (except package.json) for vite installation to the new one (react-scripts),
+  3. Rename src/main.jsx -> src/index.jsx (`ren src/main.jsx src/index.jsx`)
+  4. Delete /index.html (`rm index.html`)
+  5. Replace sections of the new package.json `dependencies` and `devDependencies` for the ald Vite package.json
   6. Reinstall de packages: `npm install`
-  7. Run the app: `npm start` (in contrast to Vite's `npm run dev`) and now the `npm test` will run ok.
+  7. Run the app: `npm start` (in contrast to Vite's `npm run dev`) and now the `npm test` will run ok without extra configuration.
+     _Note: Is possible to use still .jsx file extensions without problem (it is not necesary to change the extension to .js)_
 
 ## d. End to end testing
 
@@ -40,4 +41,4 @@ Answers to [openfullstack.com](https://fullstackopen.com) course exercises from 
 
 ## Pending
 
-- Test jest with react-testing-library in an Vite installation.
+- Configure and test [jest](https://jestjs.io/) with [react-testing-library](https://testing-library.com/docs/react-testing-library/intro/) in an Vite installation.
