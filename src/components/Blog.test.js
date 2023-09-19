@@ -1,11 +1,11 @@
 import React from 'react'
-import useState from 'react'
 import '@testing-library/jest-dom/extend-expect'
+import { act } from 'react-dom/test-utils'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Blog from '../components/Blog'
+import Blog from './Blog'
 
-describe('<Blog>', () => {
+describe('<Blog tests>', () => {
   let component
   const clickLikes = jest.fn()
 
@@ -46,6 +46,14 @@ describe('<Blog>', () => {
     // component.debug()
   })
 
+  test('renders content', () => {
+    const title = component.getByText('Title of the blog')
+    expect(title).toBeDefined()
+    const auth = component.getByText('Matti Luukkainen')
+    expect(auth).toBeDefined()
+    expect(component.container).toHaveTextContent('Title of the blog')
+  })
+
   test('checks that the component displaying a blog renders ', () => {
     let element = screen.getByText('Title of the blog')
     expect(element).toBeDefined()
@@ -66,26 +74,27 @@ describe('<Blog>', () => {
     expect(element).toBeDefined()
   })
 
-  test('after clicking the button view, children are displayed', async () => {
-    const divBefore = component.container.querySelector('.details')
-    expect(divBefore).toHaveStyle('display: none')
-
-    const user = userEvent.setup()
-    const button = screen.getByText('view')
-    await user.click(button)
-
-    const divAfter = component.container.querySelector('.details')
-    expect(divAfter).not.toHaveStyle('display: none')
-  })
-
   test('after dobleclick in like button, 2 times is the controller event', async () => {
     const user = userEvent.setup()
-
+    // component.debug()
     const sendButton = screen.getByText('like')
     expect(sendButton).toBeDefined()
     // await user.click(sendButton)
     await user.dblClick(sendButton)
 
     expect(clickLikes.mock.calls).toHaveLength(2)
+  })
+
+  test('after clicking the button view, children are displayed', async () => {
+    const divBefore = component.container.querySelector('.details')
+    expect(divBefore).toHaveStyle('display: none')
+
+    const user = userEvent.setup()
+    const button = screen.getByText('view')
+    act(async () => {
+      await user.click(button)
+      const divAfter = component.container.querySelector('.details')
+      expect(divAfter).not.toHaveStyle('display: none')
+    })
   })
 })

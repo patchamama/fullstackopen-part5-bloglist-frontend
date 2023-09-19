@@ -22,7 +22,16 @@ Answers to [openfullstack.com](https://fullstackopen.com) course exercises from 
 - [Exercises 5.13.-5.16.](https://fullstackopen.com/en/part5/testing_react_apps#exercises-5-13-5-16)
   _Solution details: [5.13]() | [5.14]() | [5.15]() | [5.16]()_
 
-Fixing test error with jest (`"Cannot use import statement outside a module" with Axios`): https://stackoverflow.com/questions/73958968/cannot-use-import-statement-outside-a-module-with-axios
+  - Fixing test error with jest (`"Cannot use import statement outside a module" with Axios`): https://stackoverflow.com/questions/73958968/cannot-use-import-statement-outside-a-module-with-axios
+  - Was migrated the installation from the tool `Vite` to `react-scripts` for easily follow the steps and exercises of the course with the test section to use jest (framework) with react-testing-library (with Vite was more complicated to do and I leave as some pending). The steps are very simple:
+
+  1. Do a new installation: `npx create-react-app new-install && cd new_install`,
+  2. Copy the content (except package.json) for vite installation to the new one,
+  3. rename src/main.jsx -> src/index.jsx
+  4. Delete /index.html
+  5. Replace sections of the new package.json `dependencies` and `devDependencies` for the vite package.json
+  6. Reinstall de packages: `npm install`
+  7. Run the app: `npm start` (in contrast to Vite's `npm run dev`) and now the `npm test` will run ok.
 
 ## d. End to end testing
 
@@ -30,3 +39,5 @@ Fixing test error with jest (`"Cannot use import statement outside a module" wit
   _Solution details: [5.17]() | [5.18]() | [5.19]() | [5.20]() | [5.21]() | [5.22]() | [5.23]()_
 
 ## Pending
+
+- Test jest with react-testing-library in an Vite installation.

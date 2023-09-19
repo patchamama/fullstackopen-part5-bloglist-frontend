@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import blogService from '../services/blogs'
 
-const BlogForm = ({ blogs, setBlogs, setNotificationMsg }) => {
+const BlogForm = ({ blogs, setBlogs, setNotificationMsg, addBlog }) => {
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
 
-  const addBlog = (event) => {
+  const newAddBlog = (event) => {
     event.preventDefault()
     const blogObject = {
       title: newTitle,
@@ -60,24 +60,32 @@ const BlogForm = ({ blogs, setBlogs, setNotificationMsg }) => {
       })
   }
 
+  addBlog = addBlog || newAddBlog
+
   return (
     <div>
       <h2>create new</h2>
       <form onSubmit={addBlog}>
         title:
         <input
+          name='title'
+          data-testid='title-input'
           value={newTitle}
           onChange={({ target }) => setNewTitle(target.value)}
         />
         <br />
         author:
         <input
+          name='author'
+          data-testid='author-input'
           value={newAuthor}
           onChange={({ target }) => setNewAuthor(target.value)}
         />
         <br />
         url:
         <input
+          name='url'
+          data-testid='url-input'
           value={newUrl}
           onChange={({ target }) => setNewUrl(target.value)}
         />
