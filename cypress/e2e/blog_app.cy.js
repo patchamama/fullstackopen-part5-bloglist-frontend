@@ -63,6 +63,9 @@ describe('Blog app', function () {
 
       cy.get('.like').click()
       cy.contains('likes 1')
+
+      cy.contains('remove').click()
+      cy.get('html').should('not.contain', 'title created by cypress')
     })
   })
 })
