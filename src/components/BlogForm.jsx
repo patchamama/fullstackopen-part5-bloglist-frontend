@@ -68,6 +68,7 @@ const BlogForm = ({ blogs, setBlogs, setNotificationMsg, addBlog }) => {
       <form onSubmit={addBlog}>
         title:
         <input
+          id='title'
           name='title'
           data-testid='title-input'
           value={newTitle}
@@ -76,6 +77,7 @@ const BlogForm = ({ blogs, setBlogs, setNotificationMsg, addBlog }) => {
         <br />
         author:
         <input
+          id='author'
           name='author'
           data-testid='author-input'
           value={newAuthor}
@@ -84,13 +86,16 @@ const BlogForm = ({ blogs, setBlogs, setNotificationMsg, addBlog }) => {
         <br />
         url:
         <input
+          id='url'
           name='url'
           data-testid='url-input'
           value={newUrl}
           onChange={({ target }) => setNewUrl(target.value)}
         />
         <br />
-        <button type='submit'>create</button>
+        <button id='create' type='submit'>
+          create
+        </button>
       </form>
     </div>
   )
