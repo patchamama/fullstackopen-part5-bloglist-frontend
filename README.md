@@ -41,4 +41,4 @@ Answers to [openfullstack.com](https://fullstackopen.com) course exercises from 
 
 ## Pending
 
-- Configure and test [jest](https://jestjs.io/) with [react-testing-library](https://testing-library.com/docs/react-testing-library/intro/) in an Vite installation.
+- Configure and test [jest](https://jestjs.io/) with [react-testing-library](https://testing-library.com/docs/react-testing-library/intro/) in an Vite tools installation.
