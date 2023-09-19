@@ -11,7 +11,36 @@ describe('Blog app', function () {
   })
 
   it('Login form is shown', function () {
-    cy.visit('http://localhost:3002')
+    // cy.visit('http://localhost:3002')
     cy.contains('Log in to application')
+  })
+
+  describe('Login', function () {
+    it('succeeds with correct credentials', function () {
+      // cy.visit('http://localhost:3002')
+      // cy.contains('log in').click()
+      // cy.get('input:first').type('test')
+      // cy.get('input:last').type('test')
+      cy.get('#username').type('mluukkai')
+      cy.get('#password').type('salainen')
+      cy.get('#login-button').click()
+
+      cy.contains('Matti Luukkainen logged-in')
+    })
+
+    it('fails with wrong credentials', function () {
+      cy.get('#username').type('mluukkai')
+      cy.get('#password').type('wrong')
+      cy.get('#login-button').click()
+
+      cy.contains('Wrong credentials')
+
+      cy.get('.error')
+        .should('contain', 'Wrong credentials')
+        .and('have.css', 'color', 'rgb(255, 0, 0)')
+        .and('have.css', 'border-style', 'solid')
+
+      cy.get('html').should('not.contain', 'Matti Luukkainen logged-in')
+    })
   })
 })
