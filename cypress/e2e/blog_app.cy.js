@@ -7,6 +7,13 @@ describe('Blog app', function () {
       password: 'salainen',
     }
     cy.request('POST', 'http://localhost:3003/api/users/', user)
+
+    const user2 = {
+      name: 'test user',
+      username: 'test',
+      password: 'test',
+    }
+    cy.request('POST', 'http://localhost:3003/api/users/', user2)
     cy.visit('http://localhost:3002')
   })
 
@@ -66,6 +73,27 @@ describe('Blog app', function () {
 
       cy.contains('remove').click()
       cy.get('html').should('not.contain', 'title created by cypress')
+    })
+
+    it('A different user cant see the remove option or delete the blog', function () {
+      cy.contains('new blog').click()
+      cy.get('#title').type('title created by cypress')
+      cy.get('#author').type('author created by cypress')
+      cy.get('#url').type('url created by cypress')
+      cy.get('#create').click()
+      cy.contains('title created by cypress')
+
+      cy.contains('view').click()
+      cy.contains('remove')
+      cy.contains('logout').click()
+
+      cy.get('#username').type('test')
+      cy.get('#password').type('test')
+      cy.get('#login-button').click()
+
+      cy.contains('view').click()
+      // cy.get('html').should('not.contain', 'remove')
+      cy.contains('remove').should('not.exist')
     })
   })
 })
