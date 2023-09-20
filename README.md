@@ -37,7 +37,7 @@ Answers to [openfullstack.com](https://fullstackopen.com) course exercises from 
 ## d. End to end testing
 
 - [Exercises 5.17.-5.23.](https://fullstackopen.com/en/part5/end_to_end_testing#exercises-5-17-5-23)
-  _Solution details: [5.17]() | [5.18]() | [5.19]() | [5.20]() | [5.21]() | [5.22]() | [5.23]()_
+  _Solution details: [5.17](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/39fdc8b57e04a2cbc718e69d4b86652834825f49) | [5.18](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/b5f81434369b81e3ffebd557786914aee99190f6) | [5.19](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/f71acbfe3623b53829fced259ea40ed4eba74d15) | [5.20](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/44a4a69cebfbf257b056035dba72d478a992f6f7) | [5.21](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/bcb4b3e5bf814d163d4d8fa347e6eb0e51e690b1) | [5.22](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/044b24d40ec223b7620443c397688e8b098efebe) | [5.23](https://github.com/patchamama/fullstackopen-part5-bloglist-frontend/commit/eac096b56b058563b2b5be55b00e4987e88416ef)_
 
 ## Pending
 
