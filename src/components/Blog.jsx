@@ -79,11 +79,13 @@ const Blog = ({ blog, blogs, setBlogs, setNotificationMsg, handleLike }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div className='blog' style={blogStyle}>
       <span className='title'>{blog.title}</span>{' '}
       <span className='author'>{blog.author}</span>{' '}
       <span style={hideWhenVisible}>
-        <button onClick={() => setVisible(true)}>view</button>
+        <button className='view' onClick={() => setVisible(true)}>
+          view
+        </button>
       </span>
       <span className='details' style={showWhenVisible}>
         <button onClick={() => setVisible(false)}>hide</button>

@@ -51,7 +51,7 @@ describe('Blog app', function () {
     })
   })
 
-  describe.only('When logged in', function () {
+  describe('When logged in', function () {
     beforeEach(function () {
       cy.get('input:first').type('mluukkai')
       cy.get('input:last').type('salainen')
@@ -65,14 +65,35 @@ describe('Blog app', function () {
       cy.get('#url').type('url created by cypress')
       cy.get('#create').click()
       cy.contains('title created by cypress')
+    })
+
+    it('Test like function', function () {
+      cy.contains('new blog').click()
+      cy.get('#title').type('title created by cypress')
+      cy.get('#author').type('author created by cypress')
+      cy.get('#url').type('url created by cypress')
+      cy.get('#create').click()
+      cy.contains('title created by cypress')
 
       cy.contains('view').click()
 
       cy.get('.like').click()
       cy.contains('likes 1')
+    })
+
+    it('Check remove blog function', function () {
+      cy.contains('new blog').click()
+      cy.get('#title').type('title created by cypress')
+      cy.get('#author').type('author created by cypress')
+      cy.get('#url').type('url created by cypress')
+      cy.get('#create').click()
+      cy.contains('title created by cypress')
+
+      cy.contains('view').click()
 
       cy.contains('remove').click()
-      cy.get('html').should('not.contain', 'title created by cypress')
+      // cy.get('html').should('not.contain', 'title created by cypress')
+      cy.contains('title created by cypress').should('not.exist')
     })
 
     it('A different user cant see the remove option or delete the blog', function () {
@@ -94,6 +115,32 @@ describe('Blog app', function () {
       cy.contains('view').click()
       // cy.get('html').should('not.contain', 'remove')
       cy.contains('remove').should('not.exist')
+    })
+
+    it('Checks that the blogs are ordered according to likes ', function () {
+      cy.contains('new blog').click()
+      cy.get('#title').type('The title with the second most likes=0')
+      cy.get('#author').type('author created by cypress')
+      cy.get('#url').type('url created by cypress')
+      cy.get('#create').click()
+
+      cy.get('.view').eq(0).click()
+      //   cy.get('.like').click()
+
+      cy.get('#title').type('The title with the most likes=2')
+      cy.get('#author').type('2nd author created by cypress')
+      cy.get('#url').type('2nd url created by cypress')
+      cy.get('#create').click()
+
+      cy.get('.view').eq(1).click()
+      cy.get('.like').eq(1).click()
+      cy.contains('likes 1')
+      cy.get('.like').eq(0).click()
+
+      cy.get('.blog').eq(0).should('contain', 'The title with the most likes=2')
+      cy.get('.blog')
+        .eq(1)
+        .should('contain', 'The title with the second most likes=0')
     })
   })
 })
